@@ -1,21 +1,18 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <pre>
-      {{ breeds }}
-    </pre>
+    <q-table :rows="breed" style="max-width: 960px" />
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { useApi } from 'src/composables/api';
-import { onMounted, ref } from 'vue';
-import { BreedResult } from 'src/types/api';
+import { onMounted } from 'vue';
+import { useBreedStore } from 'src/stores/breeds';
+import { storeToRefs } from 'pinia';
 
-const api = useApi();
-const breeds = ref<BreedResult>();
+const breedStore = useBreedStore();
+const { breed } = storeToRefs(breedStore);
 
 onMounted(async () => {
-  const { data } = await api.get('/breeds');
-  breeds.value = data;
+  await breedStore.fetch();
 });
 </script>
