@@ -8,7 +8,7 @@ export interface Breed {
   temperament: string;
   origin: string;
   reference_image_id: string;
-  image: [];
+  image: [url: string];
 }
 
 export type BreedResult = Breed[];
