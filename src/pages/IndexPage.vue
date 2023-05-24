@@ -1,23 +1,25 @@
-<!-- <template>
-  <q-page class="flex-center">
-    <q-table :rows="breed" />
-  </q-page>
-</template> -->
 <template>
-  <div class="q-pa-md row justify-between items-center q-gutter-md">
-    <q-card class="my-card" v-for="data in breed" :key="data.id">
-      <q-card-section class="bg-primary text-white">
-        <q-img :src="data.image.url" alt="" />
-        <div class="text-subtitle2">{{ data.name }}</div>
-      </q-card-section>
+  <!-- v-for="data in breed":key="data.reference_image_id" -->
 
-      <q-separator />
-
-      <q-card-actions align="center">
-        <q-btn flat>Action 1</q-btn>
-        <q-btn flat>Action 2</q-btn>
-      </q-card-actions>
-    </q-card>
+  <div v-for="data in breed" :key="data.reference_image_id">
+    <div class="card-body">
+      <div class="card-title">
+        {{ data.name }}
+        <div class="card-title-sheet">criado para: {{ data.bred_for }}</div>
+      </div>
+      <div>
+        <img :src="data.image.url" :alt="data.reference_image_id" />
+      </div>
+      <div class="card-brief">
+        <ul>
+          <li>Origem: {{ data.origin }}</li>
+          <li>Temperamento: {{ data.temperament }}</li>
+          <li>Peso: {{ data.weight.metric }} lb.</li>
+          <li>Altura: {{ data.height.metric }} in.</li>
+          <li>Tempo de vida: {{ data.life_span }}.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,3 +35,41 @@ onMounted(async () => {
   await breedStore.fetch();
 });
 </script>
+
+<style scoped>
+* {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.card-body {
+  width: 300px;
+  background-color: #006dcc;
+  border-radius: 12px;
+}
+.card-body img {
+  border-radius: 12px 12px 0 0;
+}
+.card-title {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.card-title-sheet {
+  font-size: 12px;
+}
+.card-brief {
+  padding: 0;
+  margin: 5px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+.card-brief ul li {
+  padding: 0;
+}
+</style>
