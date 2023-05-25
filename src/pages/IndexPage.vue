@@ -1,27 +1,51 @@
-<!-- <template>
-  <q-page class="flex-center">
-    <q-table :rows="breed" />
-  </q-page>
-</template> -->
 <template>
-  <div class="q-pa-md row justify-between items-center q-gutter-md">
-    <q-card class="my-card" v-for="data in breed" :key="data.id">
-      <q-card-section class="bg-primary text-white">
-        <q-img :src="data.image.url" alt="" />
-        <div class="text-subtitle2">{{ data.name }}</div>
-      </q-card-section>
+  <q-page-container>
+    <q-page>
+      <div class="row q-col-gutter-md q-pa-md">
+        <div
+          class="col col-xs-12 col-sm-4 col-md-3 col-lg-2"
+          v-for="dog in breed"
+          :key="dog.reference_image_id"
+        >
+          <q-card>
+            <q-card-section class="bg-primary text-white">
+              <div class="text-h6 text-center">{{ dog.name }}</div>
+            </q-card-section>
+            <q-card-section>
+              <q-img
+                class="rounded-borders"
+                :src="dog.image.url"
+                :ratio="4 / 3"
+                :fit="'scale-down'"
+                :alt="dog.name"
+                :spinner-color="'primary'"
+              ></q-img>
+            </q-card-section>
 
-      <q-separator />
+            <BreedInfo
+              class="q-py-sm"
+              :peso="dog.height.metric"
+              :altura="dog.weight.metric"
+              :criacao="dog.bred_for"
+              :vida="dog.life_span"
+              :outros="dog.temperament"
+            />
 
-      <q-card-actions align="center">
-        <q-btn flat>Action 1</q-btn>
-        <q-btn flat>Action 2</q-btn>
-      </q-card-actions>
-    </q-card>
-  </div>
+            <q-separator />
+
+            <q-card-actions class="justify-around q-px-sm bg-grey-3">
+              <BreedLike :dog_id="dog.id" />
+            </q-card-actions>
+          </q-card>
+        </div>
+      </div>
+    </q-page>
+  </q-page-container>
 </template>
 
 <script setup lang="ts">
+import BreedInfo from '../components/Breed-Info.vue';
+import BreedLike from '../components/Breed-Like.vue';
 import { onMounted } from 'vue';
 import { useBreedStore } from 'src/stores/breeds';
 import { storeToRefs } from 'pinia';
