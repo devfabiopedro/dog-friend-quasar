@@ -34,7 +34,7 @@
             <q-separator />
 
             <q-card-actions class="justify-around q-px-sm bg-grey-3">
-              <BreedLike :dog_id="dog.id" />
+              <BreedLike :dog_id="dog.id" :key="dog.reference_image_id" />
             </q-card-actions>
           </q-card>
         </div>

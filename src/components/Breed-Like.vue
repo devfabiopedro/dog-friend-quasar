@@ -1,6 +1,6 @@
 <template>
   <q-checkbox
-    v-model="val"
+    v-model="liked"
     checked-icon="favorite"
     unchecked-icon="favorite_border"
     color="red"
@@ -10,15 +10,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
 
-const val = ref(false);
-const liked = useLocalStorage('liked-' + props.id, false);
-
-defineProps({
-  dog_id: number,
+const props = defineProps({
+  dog_id: Number,
 });
+
+const liked = useLocalStorage('breed-liked-' + props.dog_id, false);
 </script>
 
 <style scoped></style>
